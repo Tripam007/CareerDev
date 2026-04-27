@@ -1,0 +1,6 @@
+{
+  "name": "CareerCoach AI",
+  "description": "An AI-powered resume analyzer and mock interview coach to help you land your dream job.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["AI Analysis", "Interview Simulation", "Feedback Generation"]
+}

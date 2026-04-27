@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['username', 'displayName', 'email', 'createdAt', 'updatedAt']) &&
+             data.username is string && data.username.size() <= 30 &&
+             data.displayName is string && data.displayName.size() <= 100 &&
+             data.email is string &&
+             data.createdAt == request.time &&
+             data.updatedAt == request.time;
+    }
+
+    match /users/{userId} {
+      // Users can read any profile (public) but only edit their own
+      allow get: if isSignedIn();
+      allow list: if isSignedIn(); // In a real app maybe restrict search
+      
+      allow create: if isSignedIn() && isOwner(userId) && isValidUserProfile(request.resource.data);
+      
+      allow update: if isSignedIn() && isOwner(userId) && 
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'avatarUrl', 'bio', 'updatedAt']) &&
+        request.resource.data.updatedAt == request.time;
+    }
+  }
+}
