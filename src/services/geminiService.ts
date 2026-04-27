@@ -143,6 +143,33 @@ Format your response as professional Markdown with a structured layout.`
   return result.text;
 }
 
+export async function generateResume(role: string, details: string) {
+  const client = getAIClient();
+  const result = await client.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: [{
+      role: "user",
+      parts: [{
+        text: `You are an expert Resume Architect. Your goal is to build a professional, high-impact resume based on the following details.
+
+Target Role: ${role}
+Candidate Details: 
+${details}
+
+Please structure the resume with the following sections:
+1. Professional Summary (Punchy and achievement-oriented)
+2. Core Competencies (Technical and soft skills)
+3. Professional Experience (Use bullet points starting with strong action verbs)
+4. Education & Certifications
+5. Projects (If relevant)
+
+Format the return as a clean, professional Markdown document. Do not include personal placeholders like [Your Name] unless you have them, otherwise use professional generic placeholders. Focus on industry keywords relevant to a ${role}.`
+      }]
+    }]
+  });
+  return result.text;
+}
+
 export async function textToSpeech(text: string) {
   const client = getAIClient();
   try {

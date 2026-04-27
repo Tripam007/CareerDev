@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Briefcase, LayoutDashboard, MessageSquare, Sparkles, BookOpen, ChevronRight, GraduationCap, User, Shield, Loader2 } from 'lucide-react';
 import ResumeAnalyzer from './components/ResumeAnalyzer';
+import ResumeGenerator from './components/ResumeGenerator';
 import InterviewCoach from './components/InterviewCoach';
 import AuthSystem from './components/AuthSystem';
 import UserProfilePage from './components/UserProfilePage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { motion, AnimatePresence } from 'motion/react';
 
-type Tab = 'dashboard' | 'analyzer' | 'interview' | 'auth' | 'profile';
+type Tab = 'dashboard' | 'analyzer' | 'generator' | 'interview' | 'auth' | 'profile';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -62,6 +63,12 @@ function AppContent() {
             label="Resume Logic" 
             active={activeTab === 'analyzer'} 
             onClick={() => setActiveTab('analyzer')} 
+          />
+          <NavItem 
+            icon={<BookOpen size={18} />} 
+            label="Resume Architect" 
+            active={activeTab === 'generator'} 
+            onClick={() => setActiveTab('generator')} 
           />
           <NavItem 
             icon={<MessageSquare size={18} />} 
@@ -121,19 +128,27 @@ function AppContent() {
                 </p>
               </header>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <DashboardCard 
                   icon={<Sparkles size={24} className="text-indigo-400" />}
                   title="Resume Analyzer"
-                  description="Proprietary analysis of semantic structure, keyword density, and competitive indexing."
+                  description="Proprietary analysis of semantic structure and keyword density."
                   onClick={() => setActiveTab('analyzer')}
                   color="bg-indigo-600/10"
                   id="dashboard-resume-card"
                 />
                 <DashboardCard 
+                  icon={<BookOpen size={24} className="text-amber-400" />}
+                  title="Resume Architect"
+                  description="Neural generation of professional resumes based on your requirements."
+                  onClick={() => setActiveTab('generator')}
+                  color="bg-amber-500/10"
+                  id="dashboard-generator-card"
+                />
+                <DashboardCard 
                   icon={<MessageSquare size={24} className="text-emerald-400" />}
                   title="Interview Coach"
-                  description="Dynamic simulation engine for real-time behavioral evaluation and feedback loops."
+                  description="Dynamic simulation engine for real-time behavioral evaluation."
                   onClick={() => setActiveTab('interview')}
                   color="bg-emerald-500/10"
                   id="dashboard-interview-card"
@@ -178,6 +193,17 @@ function AppContent() {
               exit={{ opacity: 0, x: -20 }}
             >
               <ResumeAnalyzer />
+            </motion.div>
+          )}
+
+          {activeTab === 'generator' && (
+            <motion.div 
+              key="generator"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <ResumeGenerator />
             </motion.div>
           )}
 
