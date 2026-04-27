@@ -2,7 +2,7 @@
 
 > Architecting your professional future with AI
 
-CareerCoach AI is an AI-powered platform designed to help students and job seekers improve their resumes and prepare for interviews through personalized, real-time guidance.
+CareerDev AI is an AI-powered platform designed to help students and job seekers improve their resumes and prepare for interviews through personalized, real-time guidance.
 
 It combines **resume analysis**, **role-based optimization**, and **AI-driven interview simulations** into a single seamless experience.
 
