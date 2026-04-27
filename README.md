@@ -1,4 +1,4 @@
-# 🚀 CareerCoach AI – Intelligent Resume & Interview Assistant
+# 🚀 CareerDev AI – Intelligent Resume & Interview Assistant
 
 > Architecting your professional future with AI
 
