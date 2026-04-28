@@ -144,8 +144,8 @@ This project is licensed under the MIT License.
 
 - Tripam Biswas  
 - Shreya Singh
-- Aitri
-- Srinjani
+- Aitri Dasgupta
+- Srinjini Mitra
 
 ---
 
